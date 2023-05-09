@@ -44,10 +44,6 @@ public class MemberController {
             mv.addObject("alert", alert).setViewName("common/alert");
             return mv; // 홈으로 이동
         }
-        
-     // 로그인되지 않은 상태인 경우, 알림창을 띄우고 로그인 페이지로 이동 
-        Alert alert = new Alert("/member/login", "로그인이 필요한 서비스 입니다.");
-        mv.addObject("alert", alert).setViewName("common/alert");
 		return mv;
 	}
 
@@ -275,12 +271,7 @@ public class MemberController {
             mv.addObject("alert", alert).setViewName("common/alert");
             return mv; // 홈으로 이동
         }
-        
-     // 로그인되지 않은 상태인 경우, 알림창을 띄우고 로그인 페이지로 이동 
-        Alert alert = new Alert("/member/login", "로그인이 필요한 서비스 입니다.");
-        mv.addObject("alert", alert).setViewName("common/alert");
 		return mv;
-		
 	}
 
 	@PostMapping("/findId")
@@ -318,10 +309,6 @@ public class MemberController {
             mv.addObject("alert", alert).setViewName("common/alert");
             return mv; // 홈으로 이동
         }
-        
-     // 로그인되지 않은 상태인 경우, 로그인 페이지로 이동 
-        Alert alert = new Alert("/member/login", "로그인이 필요한 서비스 입니다.");
-        mv.addObject("alert", alert).setViewName("common/alert");
 		return mv;
 	}
 
@@ -539,22 +526,14 @@ public class MemberController {
 	public ModelAndView bye(ModelAndView mv, HttpSession session) {
 		mv.setViewName("member/bye");
 		
-		// 세션에 저장된 회원 정보를 가져오기 
-        Member loginUser = (Member) session.getAttribute("member");
-        
-        // 이미 로그인된 상태인 경우
-        if (loginUser != null) {
-        	// 홈으로 이동하도록 알림창 띄우고,  알림창을 표시하는 뷰 반환 
-            Alert alert = new Alert("/", "이미 로그인된 상태입니다.");
-            mv.addObject("alert", alert).setViewName("common/alert");
-            return mv; // 홈으로 이동
-        }
-        
-     // 로그인되지 않은 상태인 경우, 알림창을 띄우고 로그인 페이지로 이동 
-        Alert alert = new Alert("/member/login", "로그인이 필요한 서비스 입니다.");
-        mv.addObject("alert", alert).setViewName("common/alert");
+		Member member = (Member) session.getAttribute("member");
+		if (member == null) {
+			// member가 null인 경우 처리
+			Alert alert = new Alert("/member/login", "로그인이 필요한 서비스입니다.");
+			mv.addObject("alert", alert);
+			mv.setViewName("common/alert");
+		}
 		return mv;
-		
 	}
 
 	@PostMapping("/bye")

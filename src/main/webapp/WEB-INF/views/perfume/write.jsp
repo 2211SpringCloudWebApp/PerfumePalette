@@ -27,7 +27,7 @@
 			<div id="hrefList">
 				<div id="hrefName">${sessionScope.member.memberName }님</div>
 				<span><a href="/perfume/mList">판매상품관리</a></span>
-				<span><a href="#">주문내역관리</a></span>
+				<span><a href="/admin/order/list">주문내역관리</a></span>
 				<span><a href="/admin/member/amList">회원관리</a></span>
 				<span><a href="/admin/qna/list">문의관리</a></span>
 				<span><a href="/admin/review/list">후기관리</a></span>
@@ -49,14 +49,14 @@
 							</div>
 						</div>
 						<div class="top_right">
-							<div class="div">
+							<div class="div" id="name">
 								<label>상품명</label> <input type="text" class="" name="perfumeName" />
 							</div>
-							<div class="div">
+							<div class="div" id="brand">
 								<label>브랜드명</label> <input type="text" class=""
 									name="perfumeBrand" />
 							</div>
-							<div class="div">
+							<div class="div" id="vol">
 								<label>향수 용량 </label>
 								<select class="category2" name="perfumeVolume">
 									<option value=30>30</option>
@@ -65,13 +65,23 @@
 									<option value=100>100</option>
 								</select>
 							</div>
-							<div class="div">
-								<label>상품가격</label> <input type="text" class=""
+							<div class="div" id="price">
+								<label>상품가격</label> <input type="number" class="price_num"
 									name="perfumePrice" />
 							</div>
-							<div class="div">
+							<div class="div" id="EA">
 								<label>상품수량</label> <input type="number" name="perfumeQuantity"
 									value="0" min="0" max="999">
+							</div>
+							<div class="div" id="pfSel">
+								<label>향수 종류</label> <select class="category1"
+									name="pScentCategory">
+									<option value="Woody">Woody</option>
+									<option value="Floral">Floral</option>
+									<option value="Fruity">Fruity</option>
+									<option value="Spicy">Spicy</option>
+									<option value="Citrus">Citrus</option>
+								</select>
 							</div>
 							<div class="div" id="img_category">
 								<label>이미지 분류</label>
@@ -117,34 +127,18 @@
 									</div>
 								</div>
 							</div>
-							<div class="div">
-								<label>향수 종류</label> <select class="category1"
-									name="pScentCategory">
-									<option value="Woody">Woody</option>
-									<option value="Floral">Floral</option>
-									<option value="Fruity">Fruity</option>
-									<option value="Spicy">Spicy</option>
-									<option value="Citrus">Citrus</option>
-								</select>
+							<div class="div" id="ox">
+								<label>리스트 노출 여부 </label> 
+								<input type="radio" name="perfumeStatus" value="1" checked /> 노출 
+								<input type="radio" name="perfumeStatus" value="0" /> 비노출
 							</div>
-							<div class="div">
-								<label>리스트 노출 여부 </label> <input type="radio" name="perfumeStatus"
-									value="1" checked /> 노출 <input type="radio" name="perfumeStatus"
-									value="0" /> 비노출
+							<div style="text-align: right;">
+								<button type="submit" class="sub_btn">등록하기</button>
 							</div>
-						</div>
-						<div>
-							<button type="submit" class="sub_btn">등록하기</button>
 						</div>
 					</div>
 				</form>
-				<!--                 <div> -->
-				<!-- 	                <div class="mid"> -->
-				<!-- 	                    <label>상품소개</label> -->
-				<!-- 	                    <textarea rows="5" cols="50" id="" name=""></textarea> -->
-				<!-- 	                </div> -->
-				<!--            		</div> -->
-				</div>
+			</div>
 		</div>
 	</main>
 	<jsp:include page="../common/footer.jsp" />

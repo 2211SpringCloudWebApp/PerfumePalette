@@ -42,6 +42,7 @@
 
 			<!-- 여기부터 내용 입력하시면 됩니다! -->
 			<div id="subject"></div>
+			<div class="continer">
 			<h1>REVIEW 신고</h1>
 			<table>
 				<thead>
@@ -51,11 +52,12 @@
 						<th>내 용</th>
 						<th>닉네임</th>
 						<th>날 짜</th>
+						<th>상 세</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${rrList }" var="review" varStatus="i">
-						<tr>
+						<tr class="list">
 							<td>${i.count }</td>
 							<td class="tdOver">
 								<c:choose>
@@ -65,18 +67,26 @@
 								</c:choose>
 							</td>
 							<td class="tdOver">
-								<button class="modal_btn" data-target="#modal${i.index }">${review.reportContent }</button>
+								${review.reportContent }
 							</td>
-							<td class="tdOver">${review.memberNickName }</td>
+							<td class="tdOver">
+								<a href="/admin/member/search?searchCondition=All&searchValue=${reivew.memberNickName }">
+									${review.memberNickName }
+								</a>
+							</td>
 							<td class="tdOver"><fmt:formatDate value="${review.reportDate }"
 									pattern="yyyy-MM-dd" /></td>
+							<td>
+								<button class="modal_btn" data-target="#modal${i.index }">보기</button>
+							</td>
 						</tr>
 <!-- 						모달 시작 -->
 						<div>
 							<input type="hidden" name="reviewNo" value="${review.reviewNo }">
 							<div class="modal" id="modal${i.index }">
 								<div class="modal_body">
-									<h1 class="modal_h1">${review.memberNickname }님의신고내용입니다.</h1>
+									<span class="modal_close"><b>X</b></span>
+									<h1 class="modal_h1">${review.memberNickname }님의 신고내용입니다.</h1>
 									<div>
 										신고 사유 :
 										<c:choose>
@@ -86,12 +96,14 @@
 										</c:choose>
 									</div>
 									<div>
-										<input type="text" name="reportContent" class="modal_input"
-											value="${review.reportContent }" readonly="readonly">
+<!-- 										<input type="text" name="reportContent" class="modal_input" -->
+<%-- 											value="${review.reportContent }" readonly="readonly"> --%>
+										<textarea name="reportContent" rows="10" cols="50" class="modal_input"
+											readonly="readonly" style="text-align: center; padding-top: 20px;">${review.reportContent }</textarea>
 									</div>
 								</div>
 									<div>
-										<button type="button" class="modal_close modal_botton">닫 기</button>
+<!-- 										<button type="button" class="modal_close ">닫 기</button> -->
 									</div>
 							</div>
 						</div>
@@ -100,7 +112,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="5" class="line paging">
+						<td colspan="6" class="line paging">
 							<div id="paging">
 								<c:if test="${paging.totalCount ne null }">
 									<c:if test="${paging.currentPage != 1}">
@@ -141,6 +153,7 @@
 					</tr>
 				</tfoot>
 			</table>
+			</div>
 		</div>
 	</main>
 	<jsp:include page="../../common/footer.jsp" />

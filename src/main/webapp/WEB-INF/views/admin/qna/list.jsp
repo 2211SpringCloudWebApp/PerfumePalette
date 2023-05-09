@@ -39,7 +39,7 @@
 			</div>
 
 			<!-- 여기부터 내용 입력하시면 됩니다! -->
-			<div id="subject"></div>
+			<div class="continer">
 			<h1>문의 관리</h1>
 			<form action="/admin/qna/search" method="get">
 				<select name="searchCondition">
@@ -50,12 +50,13 @@
 				<input type="text" name="searchValue" placeholder="검색어를 입력해주세요.">
 				<button type="submit" class="small_btn">검 색</button>
 			</form>
-			<div class="continer">
 			<table class="table">
 				<thead>
 	                <tr>
 	                	<th id="one"><input type="checkbox" class="allCheck"></th>
 	                    <th id="two">구분</th>
+	                    <th id="two_one">이미지</th>
+	                    <th id="two_two">[브랜드]상품명</th>
 	                    <th id="three">제목</th>
 	                    <th id="four">작성자</th>
 	                    <th id="five">작성일</th>
@@ -72,32 +73,50 @@
 	                            <c:if test="${qnaboard.qnaType == 3 }">교환/환불</c:if>
 	                            <c:if test="${qnaboard.qnaType == 4 }">기타문의</c:if>
 	                        </td>
-	                        <%-- <c:url var="qDetail" value="/qnaboard/detail">
-	                            <c:param name="qnaNo" value="${qnaboard.qnaNo }"></c:param>
-	                            </c:url> --%>
-	                            <td class="cursor tdOver" onclick="location.href='/qnaboard/detail?qnaNo=${qnaboard.qnaNo}'">
-	                            	${qnaboard.qnaSubject }
-	                            </td>
-	                            <td class="cursor tdOver" onclick="location.href='/qnaboard/detail?qnaNo=${qnaboard.qnaNo}'">
-	                            	${qnaboard.memberNickname }
-                            	</td>
-	                            <td class="tdOver">
-	                            	<fmt:formatDate value="${qnaboard.qnaDate }" pattern="yyyy-MM-dd" />
-                            	</td>
-	                            <td class="tdOver">
-	                                <c:if test="${qnaboard.replyStatus != 'Y'}">답변대기</c:if>
-	                                <c:if test="${qnaboard.replyStatus == 'Y'}">답변완료</c:if>
-	                            </td>
+	                        <td>
+	                        	<c:if test="${qnaboard.perfumeNo eq 0 }">
+	                        		𝑷𝒆𝒓𝒇𝒖𝒎𝒆 𝑷𝒂𝒍𝒆𝒕𝒕𝒆
+<!-- 	                        		<img src="../../../../resources/img/common/noImage.png"> -->
+	                        	</c:if>
+	                        	<c:if test="${qnaboard.perfumeNo != 0 }">
+	                        		<img src="../../../../resources/img/perfumeFileUploads/${qnaboard.pFilerename}" alt="">
+	                        	</c:if>
+	                        </td>
+	                        <td class="tdOver">
+	                        	<c:if test="${qnaboard.perfumeNo == 0 }">
+	                        		X
+	                        	</c:if>
+	                        	<c:if test="${qnaboard.perfumeNo != 0 }">
+	                        		<a href="/perfume/detail/${qnaboard.perfumeNo}">[${qnaboard.perfumeBrand }] ${qnaboard.perfumeName }</a>
+                        		</c:if>
+	                        </td>
+                            <td class="tdOver">
+                            	<a href="/qnaboard/detail?qnaNo=${qnaboard.qnaNo}">
+                            		${qnaboard.qnaSubject }
+                            	</a>
+                            </td>
+                            <td class="tdOver">
+                            	<a href="/admin/member/search?searchCondition=All&searchValue=${qnaboard.memberNickname }">
+                            		${qnaboard.memberNickname }
+                            	</a>
+                           	</td>
+                            <td class="tdOver">
+                            	<fmt:formatDate value="${qnaboard.qnaDate }" pattern="yyyy-MM-dd" />
+                           	</td>
+                            <td class="tdOver">
+                                <c:if test="${qnaboard.replyStatus != 'Y'}">답변대기</c:if>
+                                <c:if test="${qnaboard.replyStatus == 'Y'}">답변완료</c:if>
+                            </td>
 	                    </tr>
 	                </c:forEach>
                 </tbody>
                 <tfoot>
                 	<tr>
-                		<td colspan="5"></td>
+                		<td colspan="7"></td>
 						<td><button type="button" class="del">삭제하기</button></td>
 					</tr>
 	                <tr>
-						<td colspan="6" class="line">
+						<td colspan="8" class="line">
 					        <div id="paging">
 							<c:if test="${paging.totalCount ne null }">
 								<c:if test="${paging.currentPage != 1}">
@@ -141,18 +160,50 @@
 	<script>
 		// 전체 선택 박스
 		var allCheck = document.querySelector(".allCheck");
-		var list = document.querySelectorAll(".check");
 		allCheck.onclick = () => {
-			if(allCheck.checked) {
-				for(var i = 0; i < list.length; i++) {
+			if (allCheck.checked) {
+				for (var i = 0; i < list.length; i++) {
 					list[i].checked = true;
 				}
 			} else {
-				for(var i = 0; i < list.length; i++) {
+				for (var i = 0; i < list.length; i++) {
 					list[i].checked = false;
 				}
 			}
 		}
+		
+		// 선택 박스 클릭
+		var list = document.querySelectorAll(".check");
+		for (var i = 0; i < list.length; i++) {
+		  list[i].addEventListener('click', function () {
+		    var isAllChecked = true;
+		    for (var j = 0; j < list.length; j++) {
+		      if (!list[j].checked) {
+		        isAllChecked = false;
+		        break;
+		      }
+		    }
+		    if (isAllChecked) {
+		      allCheck.checked = true;
+		    } else {
+		      allCheck.checked = false;
+		    }
+		  });
+		}
+// 		// 전체 선택 박스
+// 		var allCheck = document.querySelector(".allCheck");
+// 		var list = document.querySelectorAll(".check");
+// 		allCheck.onclick = () => {
+// 			if(allCheck.checked) {
+// 				for(var i = 0; i < list.length; i++) {
+// 					list[i].checked = true;
+// 				}
+// 			} else {
+// 				for(var i = 0; i < list.length; i++) {
+// 					list[i].checked = false;
+// 				}
+// 			}
+// 		}
 		
 		// 선택 삭제 
 		document.querySelector(".del").addEventListener('click', function() {

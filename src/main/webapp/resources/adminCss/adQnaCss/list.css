@@ -88,52 +88,84 @@ main table, tr, th, td {
 	text-align: center;
 }
 
-main img {
-	height: 100px;
+main .continer {
+	width: 70%;
+	padding-left: 130px;
+	text-align: center;
+}
+main form {
+    display: block;
+    margin: 20px 0px;
+}
+main select {
+	height: 28px;
+}
+main input{
+	height: 23.5px;
+}
+main .small_btn {
+	/*	  버튼 색 */
+	background-color: #222222;
+/*    버튼 글 씨 색 */
+   	color: white;
+/*    버튼 테두리 없애기 */
+   	border: none;
+/*    버튼 곡률 */
+   	border-radius: 5px;
+/*    버튼 그림자 */
+   	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+   	font-size: 16px;
+   	padding: 4px 10px;
+   	cursor: pointer;
 }
 
-main .continer {
+main table {
 	text-align: center;
 	border-collapse: collapse;
-	width: 60%;
+	table-layout: fixed;
+	width: 100%;
+	margin-bottom: 100px;
+}
+main table .tdOver {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 main h1 {
 	margin-bottom: 25px;
 	
 }
-main table {
-	width: 100%;
-	margin-top: 20px;
-	margin-bottom: 100px;
-	border-collapse:collapse;
-}
 main thead {
 	background-color: #34443E;
 	color: white;	
 	height: 40px;
 }
-main table tbody tr:hover {
-	background-color: #ccc;
+main table tbody tr td {
+	height: 100px;
+	padding: 0px 5px;
 }
-main table tr td {
-	height: 50px;
+main table tfoot tr td {
+	height: 50px;	
 }
-main .cursor {
-	cursor: pointer;
+main tbody td a {
+	text-decoration: none;
+	color: black;
 }
-main #one { width: 5%; }
-main #two { width: 15%; }
-main #three { width: 30%; }
-main #four { width: 20%; }
-main #five { width: 20%; }
-main #six { width: 10%; }
+main tbody td a:hover {
+	text-decoration: underline;
+	color: blue;
+}
 
-main table .tdOver {
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-}
+main #one { width: 30px; }
+main #two { width: 80px; }
+main #two_one { width: 100px; }
+main #two_two { width: 200px; }
+main #three { width: 200px; }
+main #four { width: 100px; }
+main #five { width: 100px; }
+main #six { width: 100px; }
+
 
 main .del {
 	/*	  버튼 색 */
@@ -149,6 +181,33 @@ main .del {
 	padding: 10px 10px;
 	cursor: pointer;
 }
+main img {
+	height: 100px;
+	widows: 100px;
+}
+
+
+
+/* 체크박스 */
+main input[type='checkbox'] {
+	width: 1.25rem;
+	height: 1.25rem;
+	/* border-radius: 50%; */
+	border: 1px solid #999;
+	appearance: none; /* 꼭 필요함 */
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+main input[type="checkbox"]:checked {
+	background: url("../../../resources/img/cart/check.png") no-repeat;
+	background-size: contain;
+}
+main .allCheck:checked {
+	background: url("../../../resources/img/cart/whiteCheck.png") no-repeat;
+	background-size: contain;
+}
+/* 체크박스 끝 */
 
 
 

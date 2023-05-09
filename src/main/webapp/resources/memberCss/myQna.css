@@ -94,8 +94,8 @@ main table{
 	text-align: center;
 	border-collapse: collapse;
 	border-top: 1px solid black;
-	width:180%;
-	height: 400px;
+	width:60%;
+	height: 200px;
 }
 
 main thead {
@@ -106,6 +106,7 @@ main thead {
 
 main table tr {
 	border-bottom: 1px solid;
+	height: 50px;
 }
 
 main .content{
@@ -113,6 +114,7 @@ main .content{
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 main table tfoot tr td button {

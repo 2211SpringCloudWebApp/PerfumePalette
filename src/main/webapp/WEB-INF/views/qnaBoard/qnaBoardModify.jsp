@@ -30,13 +30,13 @@
 							<input type="hidden" name="id" value="${id }" id="id">
 				           	<input type="hidden" name="qnaNo" value="${qnaboard.qnaNo }">
 				            <input type="hidden" name="qFilename" value="${qnaboard.qFilename }">
-								<select name="qnaType" id="qnaType" onchange="changeFn()" class="select"
-									value="${qnaboard.qnaType }">
-									<option name="qnaType" value="1">상품문의</option>
-									<option name="qnaType" value="2">배송문의</option>
-									<option name="qnaType" value="3">교환/환불</option>
-									<option name="qnaType" value="4">기타문의</option>
+								<select name="qnaType" id="qnaType" onchange="changeFn()" class="select">
+								    <option name="qnaType" value="1" ${qnaboard.qnaType == 1 ? "selected" : ""}>상품문의</option>
+								    <option name="qnaType" value="2" ${qnaboard.qnaType == 2 ? "selected" : ""}>배송문의</option>
+								    <option name="qnaType" value="3" ${qnaboard.qnaType == 3 ? "selected" : ""}>교환/환불</option>
+								    <option name="qnaType" value="4" ${qnaboard.qnaType == 4 ? "selected" : ""}>기타문의</option>
 								</select>
+
 								<input class="radius title" name="qnaSubject" type="text" placeholder="제목을 입력해 주세요"
 									value="${qnaboard.qnaSubject }">
 <!-- 								<div id="photo"> -->

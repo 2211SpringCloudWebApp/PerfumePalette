@@ -58,11 +58,11 @@
 					</select>
 					<select name="searchIncense">
 						<option value="All" class="New" <c:if test="${search.searchIncense == 'All' }">selected</c:if>>향 분류</option>
-						<option value="Citrus" class="New" <c:if test="${search.searchIncense == 'Citrus' }">selected</c:if>>Citrus</option>
-						<option value="Fruity" class="New" <c:if test="${search.searchIncense == 'Fruity' }">selected</c:if>>Fruity</option>
-						<option value="Floral" class="New" <c:if test="${search.searchIncense == 'Floral' }">selected</c:if>>Floral</option>
-						<option value="Spicy" class="New" <c:if test="${search.searchIncense == 'Spicy' }">selected</c:if>>Spicy</option>
 						<option value="Woody" class="New" <c:if test="${search.searchIncense == 'Woody' }">selected</c:if>>Woody</option>
+						<option value="Floral" class="New" <c:if test="${search.searchIncense == 'Floral' }">selected</c:if>>Floral</option>
+						<option value="Fruity" class="New" <c:if test="${search.searchIncense == 'Fruity' }">selected</c:if>>Fruity</option>
+						<option value="Spicy" class="New" <c:if test="${search.searchIncense == 'Spicy' }">selected</c:if>>Spicy</option>
+						<option value="Citrus" class="New" <c:if test="${search.searchIncense == 'Citrus' }">selected</c:if>>Citrus</option>
 					</select>
 					
 					<select name="searchCondition">
@@ -70,45 +70,45 @@
 						<option value="Brand" <c:if test="${search.searchCondition == 'Brand' }">selected</c:if>>Brand</option>
 						<option value="perfumeName" <c:if test="${search.searchCondition == 'perfumeName' }">selected</c:if>>perfumeName</option>
 					</select> 
-					<input type="text" name="searchValue" placeholder="검색어를 입력해주세요.">
+					<input type="text" name="searchValue" value="${search.searchValue }" placeholder="검색어를 입력해주세요.">
 					<button type="submit" class="small_btn">검 색</button>
 				</form>
 			</div>
 			<table>
 				<thead>
 					<tr id="thead">
-						<th id="check"><input type="checkbox" class="allCheck"></th>
-						<th id="img">이미지</th>
-						<th id="brand">브랜드</th>
-						<th id="name">상품명</th>
-						<th id="volume">용 량</th>
-						<th id="price">가 격</th>
-						<th id="quantity">재 고</th>
-						<th id="scent">향 분류</th>
-						<th id="imgCategory">이미지 분류</th>
-						<th id="wish">찜</th>
-						<th id="cart">장바구니</th>
-						<th id="status">노출 여부</th>
-						<th id="modify">수 정</th>
+						<th	style="width: 30px;" id="check"><input type="checkbox" class="allCheck"></th>
+						<th style="width: 70px;" id="img">이미지</th>
+						<th style="width: 100px;"id="brand">브랜드</th>
+						<th style="width: 130px;" id="name">상품명</th>
+						<th style="width: 50px;" id="volume">용 량</th>
+						<th style="width: 50px;" id="price">가 격</th>
+						<th style="width: 50px;" id="quantity">재 고</th>
+						<th style="width: 50px;" id="scent">향 분류</th>
+						<th style="width: 130px;" id="imgCategory">이미지 분류</th>
+						<th style="width: 50px;" id="wish">찜</th>
+						<th style="width: 50px;" id="cart">장바구니</th>
+						<th style="width: 50px;" id="status">노출여부</th>
+						<th style="width: 50px;" id="modify">수 정</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${sList }" var="perfume" varStatus="i">
 						<tr>
-							<td class="td"><input type="checkbox" class="check"
+							<td class="td tdOver"><input type="checkbox" class="check"
 								value="${perfume.perfumeNo }"></td>
-							<td class="td"><img
+							<td class="td tdOver"><img
 								src="../../../resources/img/perfumeFileUploads/${perfume.pFilerename }"
 								alt="상품 이미지"></td>
-							<td class="td">${perfume.perfumeBrand }</td>
-							<td class="td"><a
+							<td class="td tdOver">${perfume.perfumeBrand }</td>
+							<td class="td tdOver"><a
 								href="/perfume/detail/${perfume.perfumeNo }">${perfume.perfumeName }</a></td>
-							<td class="td">${perfume.perfumeVolume }ml</td>
-							<td class="td"><fmt:formatNumber value="${perfume.perfumePrice }" pattern="#,###" /> 원</td>
-							<td class="td">${perfume.perfumeQuantity }&nbsp;EA</td>
-							<td class="td">${perfume.pScentCategory }</td>
-							<td class="td">${perfume.pImageCategory }</td>
-							<td class="td">
+							<td class="td tdOver">${perfume.perfumeVolume }ml</td>
+							<td class="td tdOver"><fmt:formatNumber value="${perfume.perfumePrice }" pattern="#,###" /> 원</td>
+							<td class="td tdOver">${perfume.perfumeQuantity }&nbsp;EA</td>
+							<td class="td tdOver">${perfume.pScentCategory }</td>
+							<td class="td tdOver">${perfume.pImageCategory }</td>
+							<td class="td tdOver">
 								<c:if test="${perfume.wishCount > 0 }">
 									<a href="../perfume/wishList?perfumeNo=${perfume.perfumeNo }">${perfume.wishCount }</a>
 								</c:if>
@@ -170,11 +170,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="9"></td>
-						<td style="text-align: right;"><button type="button" class="bot_btn show">선택 노출</button></td>
-						<td><button type="button" class="bot_btn noShow">선택 비노출</button></td>
-						<td><button type="button" class="bot_btn del">삭제하기</button></td>
-						<td><button type="button" class="bot_btn" onclick="location.href='/perfume/write'">상품 등록</button></td>
+						<td colspan="8"></td>
+						<td colspan="5" style="text-align: right;">
+							<button type="button" class="bot_btn show">선택 노출</button>
+							<button type="button" class="bot_btn noShow">선택 비노출</button>
+							<button type="button" class="bot_btn del">삭제하기</button>
+							<button type="button" class="bot_btn" onclick="location.href='/perfume/write'">상품 등록</button>
+						</td>
 					</tr>
 				</tfoot>
 			</table>

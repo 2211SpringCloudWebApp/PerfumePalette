@@ -74,9 +74,11 @@ main table img {
 							<td><a href="/perfume/detail/${review.perfumeNo}">
 									[${review.perfumeBrand }] ${review.perfumeName }</td>
 							</a>
-							<td><a href="/review/reviewDetail/${review.reviewNo}"> <c:out
-										value="${fn:substring(review.reviewContents, 0, 19)}${fn:length(review.reviewContents) > 19 ? '...' : ''}" />
-							</a></td>
+							<td>
+								<a href="/review/reviewDetail/${review.reviewNo}"> 
+								<c:out value="${fn:substring(review.reviewContents, 0, 19)}${fn:length(review.reviewContents) > 19 ? '...' : ''}" />
+								</a>
+							</td>
 							<td><fmt:formatDate value="${review.reviewDate }"
 									pattern="yyyy-MM-dd" /></td>
 							<td>${review.rViewcount }</td>

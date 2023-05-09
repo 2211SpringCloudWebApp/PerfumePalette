@@ -80,7 +80,7 @@
 	</resultMap>
 	
 <!-- 	Qna-Mapper -->
-	<resultMap type="QnaBoard" id="qnaBoardResultMap">
+	<resultMap type="AdQnaBoard" id="qnaBoardResultMap">
       <id property="qnaNo" column="QNA_NO"></id>
       <result property="perfumeNo" column="PERFUME_NO" />
       <result property="qnaType" column="QNA_TYPE" />
@@ -96,6 +96,10 @@
       <result property="qQnaNo" column="Q_QNA_NO" />
       <result property="memberNickname" column="MEMBER_NICKNAME" />
       <result property="replyStatus" column="REPLY_STATUS"/>
+      
+      <result property="perfumeBrand" column="PERFUME_BRAND"/>
+      <result property="perfumeName" column="PERFUME_NAME"/>
+      <result property="pFilerename" column="P_FILERENAME"/>
    </resultMap>
    
 <!--    Order-Mapper -->
@@ -163,17 +167,21 @@
 	</select>
 	<select id="getSearchMListCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER_TBL
-		<choose>
-			<when test="searchCondition == 'Name'">
-				WHERE MEMBER_NAME LIKE '%' || #{searchValue} || '%'
-			</when>
-			<when test="searchCondition == 'ID'">
-				WHERE MEMBER_ID LIKE '%' || #{searchValue} || '%'
-			</when>
-			<when test="searchCondition == 'Nickname'">
-				WHERE MEMBER_NICKNAME LIKE '%' || #{searchValue} || '%'
-			</when>
-		</choose>
+		WHERE MEMBER_TYPE = 1
+		<if test="searchCondition == 'All'">
+			AND (MEMBER_NAME LIKE '%' || #{searchValue} || '%'
+			OR MEMBER_ID LIKE '%' || #{searchValue} || '%'
+			OR MEMBER_NICKNAME LIKE '%' || #{searchValue} || '%')
+		</if>
+		<if test="searchCondition == 'Name'">
+			AND MEMBER_NAME LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition == 'ID'">
+			AND MEMBER_ID LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition == 'Nickname'">
+			AND MEMBER_NICKNAME LIKE '%' || #{searchValue} || '%'
+		</if>
 	</select>
 	<select id="selectMListByKeyword" resultMap="memberResultMap">
 		SELECT * FROM MEMBER_TBL
@@ -263,38 +271,38 @@
 		) AS CART_COUNT
 		FROM PERFUME_TBL P
 		<where>
-		<if test="searchCondition == 'All'">
-			PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
-			OR PERFUME_NAME LIKE '%' || #{searchValue} || '%'
-		</if>
-		<if test="searchCondition == 'Brand'">
-			PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
-		</if>
-		<if test="searchCondition == 'perfumeName'">
-			PERFUME_NAME LIKE '%' || #{searchValue} || '%'
-		</if>
-		<if test="searchIncense eq 'All'">
-			AND (P_SCENT_CATEGORY = 'Citrus'
-			OR P_SCENT_CATEGORY = 'Fruity'
-			OR P_SCENT_CATEGORY = 'Floral'
-			OR P_SCENT_CATEGORY = 'Spicy'
-			OR P_SCENT_CATEGORY = 'Woody')
-		</if>
-		<if test="searchIncense == 'Citrus'">
-			AND P_SCENT_CATEGORY = 'Citrus'
-		</if>
-		<if test="searchIncense == 'Fruity'">
-			AND P_SCENT_CATEGORY = 'Fruity'
-		</if>
-		<if test="searchIncense == 'Floral'">
-			AND P_SCENT_CATEGORY = 'Floral'
-		</if>
-		<if test="searchIncense == 'Spicy'">
-			AND P_SCENT_CATEGORY = 'Spicy'
-		</if>
-		<if test="searchIncense == 'Woody'">
-			AND P_SCENT_CATEGORY = 'Woody'
-		</if>
+			<if test="searchCondition == 'All'">
+				(PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
+				OR PERFUME_NAME LIKE '%' || #{searchValue} || '%')
+			</if>
+			<if test="searchCondition == 'Brand'">
+				PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition == 'perfumeName'">
+				PERFUME_NAME LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchIncense eq 'All'">
+				AND (P_SCENT_CATEGORY = 'Citrus'
+				OR P_SCENT_CATEGORY = 'Fruity'
+				OR P_SCENT_CATEGORY = 'Floral'
+				OR P_SCENT_CATEGORY = 'Spicy'
+				OR P_SCENT_CATEGORY = 'Woody')
+			</if>
+			<if test="searchIncense == 'Citrus'">
+				AND P_SCENT_CATEGORY = 'Citrus'
+			</if>
+			<if test="searchIncense == 'Fruity'">
+				AND P_SCENT_CATEGORY = 'Fruity'
+			</if>
+			<if test="searchIncense == 'Floral'">
+				AND P_SCENT_CATEGORY = 'Floral'
+			</if>
+			<if test="searchIncense == 'Spicy'">
+				AND P_SCENT_CATEGORY = 'Spicy'
+			</if>
+			<if test="searchIncense == 'Woody'">
+				AND P_SCENT_CATEGORY = 'Woody'
+			</if>
 		</where>
 		<choose>
 			<when test="searchOder == 'Date'">
@@ -311,40 +319,40 @@
 	
 	<select id="getSearchListCount" resultType="_int">
 		SELECT COUNT(*) FROM PERFUME_TBL
-		<choose>
-			<when test="searchCondition == 'All'">
-				WHERE PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
-				OR PERFUME_NAME LIKE '%' || #{searchValue} || '%'
-			</when>
-			<when test="searchCondition == 'Brand'">
-				WHERE PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
-			</when>
-			<when test="searchCondition == 'perfumeName'">
-				WHERE PERFUME_NAME LIKE '%' || #{searchValue} || '%'
-			</when>
-			<when test="searchIncense == 'All'">
+		<where>
+			<if test="searchCondition == 'All'">
+				(PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
+				OR PERFUME_NAME LIKE '%' || #{searchValue} || '%')
+			</if>
+			<if test="searchCondition == 'Brand'">
+				PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition == 'perfumeName'">
+				PERFUME_NAME LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchIncense == 'All'">
 				AND (P_SCENT_CATEGORY = 'Citrus'
 				OR P_SCENT_CATEGORY = 'Fruity'
-				PR P_SCENT_CATEGORY = 'Floral'
+				OR P_SCENT_CATEGORY = 'Floral'
 				OR P_SCENT_CATEGORY = 'Spicy'
 				OR P_SCENT_CATEGORY = 'Woody')
-			</when>
-			<when test="searchIncense == 'Citrus'">
+			</if>
+			<if test="searchIncense == 'Citrus'">
 				AND P_SCENT_CATEGORY = 'Citrus'
-			</when>
-			<when test="searchIncense == 'Fruity'">
+			</if>
+			<if test="searchIncense == 'Fruity'">
 				AND P_SCENT_CATEGORY = 'Fruity'
-			</when>
-			<when test="searchIncense == 'Floral'">
+			</if>
+			<if test="searchIncense == 'Floral'">
 				AND P_SCENT_CATEGORY = 'Floral'
-			</when>
-			<when test="searchIncense == 'Spicy'">
+			</if>
+			<if test="searchIncense == 'Spicy'">
 				AND P_SCENT_CATEGORY = 'Spicy'
-			</when>
-			<when test="searchIncense == 'Woody'">
+			</if>
+			<if test="searchIncense == 'Woody'">
 				AND P_SCENT_CATEGORY = 'Woody'
-			</when>
-		</choose> 
+			</if>
+		</where> 
 	</select>
 	<select id="selectWishList" resultMap="perfumeResultMap">
 		SELECT P.PERFUME_NO, P.PERFUME_NAME, P.PERFUME_BRAND,
@@ -404,7 +412,7 @@
 		INNER JOIN MEMBER_TBL M ON R.MEMBER_NO = M.MEMBER_NO 
 		INNER JOIN PERFUME_TBL P ON R.PERFUME_NO = P.PERFUME_NO
 		<where>
-			P.PERFUME_NAME LIKE '%' || #{searchValue} || '%' OR P.PERFUME_BRAND LIKE '%' || #{searchValue} || '%'
+			(P.PERFUME_NAME LIKE '%' || #{searchValue} || '%' OR P.PERFUME_BRAND LIKE '%' || #{searchValue} || '%')
 			<if test="searchIncense eq 'All'">
 				AND (P_SCENT_CATEGORY = 'Woody'
 				OR P_SCENT_CATEGORY = 'Floral'
@@ -493,10 +501,11 @@
 		DELETE FROM QNA_TBL WHERE QNA_NO = #{qnaNo}
 	</delete>
 	<select id="selectAdQnaList" resultMap="qnaBoardResultMap">
-		SELECT Q.*, M.MEMBER_NICKNAME, R.REPLY_STATUS
+		SELECT Q.*, M.MEMBER_NICKNAME, R.REPLY_STATUS, P.PERFUME_BRAND, P.PERFUME_NAME, P.P_FILERENAME
       	FROM QNA_TBL Q
       	LEFT OUTER JOIN MEMBER_TBL M ON Q.MEMBER_NO = M.MEMBER_NO
       	LEFT OUTER JOIN Q_REPLY_TBL R ON Q.QNA_NO = R.REP_QNA_NO
+      	LEFT OUTER JOIN PERFUME_TBL P ON Q.PERFUME_NO = P.PERFUME_NO
       	ORDER BY Q.QNA_DATE DESC
 	</select>
 	<select id="getQListCount" resultType="_int">
@@ -506,6 +515,7 @@
 		SELECT COUNT(*) FROM QNA_TBL Q
       	LEFT OUTER JOIN MEMBER_TBL M ON Q.MEMBER_NO = M.MEMBER_NO
       	LEFT OUTER JOIN Q_REPLY_TBL R ON Q.QNA_NO = R.REP_QNA_NO
+      	LEFT OUTER JOIN PERFUME_TBL P ON Q.PERFUME_NO = P.PERFUME_NO
 		<choose>
 			<when test="searchCondition == 'All'">
 				WHERE QNA_SUBJECT LIKE '%' || #{searchValue} || '%'
@@ -520,10 +530,10 @@
 		</choose>
 	</select>
 	<select id="selectQListByKeyword" resultMap="qnaBoardResultMap">
-		SELECT Q.*, M.MEMBER_NICKNAME
+		SELECT Q.*, M.MEMBER_NICKNAME, P.PERFUME_BRAND, P.PERFUME_NAME, P.P_FILERENAME
       	FROM QNA_TBL Q
-      	LEFT OUTER JOIN MEMBER_TBL M
-      	ON Q.MEMBER_NO = M.MEMBER_NO
+      	LEFT OUTER JOIN MEMBER_TBL M ON Q.MEMBER_NO = M.MEMBER_NO
+      	LEFT OUTER JOIN PERFUME_TBL P ON Q.PERFUME_NO = P.PERFUME_NO
       	<where>
       		<if test="searchCondition == 'All'">
 				QNA_SUBJECT LIKE '%' || #{searchValue} || '%'

@@ -85,7 +85,8 @@ main #hrefName {
 /* 사이드바 끝 */
 
 main .table_continer {
-	width: 60%;
+	width: 70%;
+	padding-left: 130px;
 	text-align: center;
 }
 main h1 {
@@ -111,6 +112,14 @@ main tbody tr:hover {
 	background-color: #ccc;
 }
 
+main tbody tr a {
+	color: black;
+	text-decoration: none;
+}
+main tbody tr a:hover {
+	text-decoration: underline;
+	color: blue;
+}
 
 
 

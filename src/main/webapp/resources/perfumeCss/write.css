@@ -137,7 +137,7 @@ main .sub_btn {
 }
 
 main .conteiner {
-	width: 650px;
+	width: 1000px;
 	margin-bottom: 50px;
 /* 	text-align: center; */
 }
@@ -153,6 +153,11 @@ main .bfImg {
     float: left;
 }
 
+.price_num::-webkit-outer-spin-button,
+.price_num::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 input[type=number]::-webkit-inner-spin-button {
     opacity: 1
 }
@@ -172,5 +177,107 @@ main .div input {
   vertical-align: middle;
 }
 main #checkboxes {
-	margin-left: 150px;
+	margin-left: 40px;
+}
+
+main input .price_num {
+	moz-appearance: textfield;
+}
+
+
+
+main * {
+/* 	border: 1px solid black; */
+}
+
+
+
+
+
+
+
+
+
+/* 이미지 뷰어 */
+#img-viewer {
+  margin-bottom: 10px;
+}
+
+/* 이미지 업로드 버튼 */
+.file_btn {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #dddddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 향수 정보 입력란들 */
+.div {
+  margin-top: 10px;
+}
+
+.div label {
+  display: inline-block;
+  width: 100px;
+}
+
+.div input[type=text],
+.div input[type=number],
+.div select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+}
+
+/* 이미지 분류 select와 checkbox */
+#mySelect {
+  margin-top: 10px;
+}
+
+#checkboxes {
+/*   display: none; */
+/* 	display: grid; */
+/* 	grid-template-columns: repeat(2, 1fr); */
+/* 	grid-gap: 10px; */
+}
+
+#checkboxes div {
+  margin-bottom: 10px;
+}
+
+#checkboxes input[type=checkbox] {
+  margin-left: 10px;
+}
+
+/* 제출 버튼 */
+#submit_btn {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #008cba;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 전체 컨테이너 */
+.inputArea {
+  display: flex;
+/*   justify-content: space-between; */
+  width: 900px;
+}
+
+/* 왼쪽 컨테이너 */
+.top_left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+/* 오른쪽 컨테이너 */
+.top_right {
+  width: 50%;
 }

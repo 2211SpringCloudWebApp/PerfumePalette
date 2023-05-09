@@ -46,15 +46,15 @@
 				<span><a href="/admin/review/list">후기관리</a></span>
 			</div>
 			<!-- 여기부터 내용 입력하시면 됩니다! -->
-			<h1>장바구니 회원</h1>
 			<div class="table_continer">
+			<h1>장바구니 회원 목록</h1>
 			<table style="text-align: center;">
 				<thead>
 					<tr id="thead">
 						<th style="width: 100px">번 호</th>
 						<th style="width: 200px">품 명</th>
 						<th style="width: 200px">아이디</th>
-						<th style="width: 200px">수 량</th>
+						<th style="width: 100px">수 량</th>
 						<th style="width: 200px">날 짜</th>
 					</tr>
 				</thead>
@@ -63,7 +63,9 @@
 					<tr>
 						<td>${i.count }</td>
 						<td>${perfume.perfumeName }</td>
-						<td>${perfume.memberId }</td>
+						<td class="id">
+							<a href="/admin/member/search?searchCondition=All&searchValue=${perfume.memberId }">${perfume.memberId }</a>
+						</td>
 						<td>${perfume.cartQuantity }</td>
 						<td><fmt:formatDate value="${perfume.cartDate }" pattern="yyyy-MM-dd" /></td>
 					</tr>

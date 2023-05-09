@@ -8,13 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.perfumePalette.PageInfo;
 import com.kh.perfumePalette.Search;
-import com.kh.perfumePalette.qnaBoard.QnaBoard;
 
 @Repository
 public class AdQnaStoreImpl implements AdQnaStore {
 
 	@Override
-	public List<QnaBoard> selectAllQna(SqlSession session, PageInfo pi) {
+	public List<AdQnaBoard> selectAllQna(SqlSession session, PageInfo pi) {
 		int limit = pi.getBoardLimit();
 		int currentPage = pi.getCurrentPage();
 		int offset = (currentPage - 1) * limit;
@@ -33,7 +32,7 @@ public class AdQnaStoreImpl implements AdQnaStore {
 	}
 
 	@Override
-	public List<QnaBoard> selectListByKeyword(SqlSession session, PageInfo pi, Search search) {
+	public List<AdQnaBoard> selectListByKeyword(SqlSession session, PageInfo pi, Search search) {
 		int limit = pi.getBoardLimit();
 		int currentPage = pi.getCurrentPage();
 		int offset = (currentPage - 1) * limit;

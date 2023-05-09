@@ -10,9 +10,9 @@ public interface AdQnaService {
 
 	/**
 	 * 관리자 문의 리스트 Service
-	 * @return
+	 * @return List<AdQnaBoard>
 	 */
-	List<QnaBoard> selectAllQna(PageInfo pi);
+	List<AdQnaBoard> selectAllQna(PageInfo pi);
 
 	/**
 	 * 문의 선택 삭제 Service
@@ -31,9 +31,9 @@ public interface AdQnaService {
 	/**
 	 * 문의 검색 Service
 	 * @param search
-	 * @return List<QnaBoard>
+	 * @return List<AdQnaBoard>
 	 */
-	List<QnaBoard> selectListByKeyword(PageInfo pi, Search search);
+	List<AdQnaBoard> selectListByKeyword(PageInfo pi, Search search);
 
 	/**
 	 * 문의 개수 Service

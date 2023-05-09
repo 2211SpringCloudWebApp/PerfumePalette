@@ -16,6 +16,11 @@
       rel="apple-touch-icon"
       href="../../resources/img/common/favicon.png"
     />
+    <style>
+    .productName{
+    	color:gray;
+    }
+    </style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp" />
@@ -45,10 +50,10 @@
                     <th style="width:60px;">
                     	<input type="checkbox" class="allCheck" id="thCheck" >
                     </th>
-                    <th style="width:60px;">번호</th>
-                    <th style="width:110px;" >내용</th>
-                    <th style="width:200px;"></th>
-                    <th style="width:150px;">작성일</th>
+                    <th style="width:30px;">번호</th>
+                    <th style="width:135px;" >내용</th>
+                    <th style="width:180px;"></th>
+                    <th style="width:110px;">작성일</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,12 +65,12 @@
               <td>${i.count }</td>
               <td>
               	<a href="/review/reviewDetail/${comment.reviewNo}">
-              		${comment.commentContent}
+              	<c:out value="${fn:substring(comment.commentContent, 0, 15)}${fn:length(comment.commentContent) > 15 ? '...' : ''}" />
               	</a>
               </td>
               <td>
-              	<a href="/perfume/detail/${comment.perfumeNo}" class="gray">
-              		[${comment.perfumeBrand }] ${comment.perfumeName }
+              	<a href="/perfume/detail/${comment.perfumeNo}" >
+              		<span class="productName">[${comment.perfumeBrand }] ${comment.perfumeName }</span>
               	</a>
               </td>
               <td><fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd" /></td>

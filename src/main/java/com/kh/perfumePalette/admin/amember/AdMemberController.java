@@ -99,8 +99,9 @@ public class AdMemberController {
 					model.addAttribute("sList", searchList);
 					return "admin/member/search";
 				} else {
-					model.addAttribute("msg", "조회에 실패하였습니다.");
-					return "common/error";
+					Alert alert = new Alert("/admin/member/search", "존재하지 않는 회원입니다.");
+					model.addAttribute("alert", alert);
+					return "common/alert";
 				}
 			}
 		} catch (Exception e) {

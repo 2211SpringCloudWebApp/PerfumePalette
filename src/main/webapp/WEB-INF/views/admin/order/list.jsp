@@ -43,19 +43,19 @@
 			<table>
 				<thead>
 					<tr>
-						<th colspan="1">주문번호</th>
-						<th>주문 일자</th>
-						<th>구매자명</th>
-						<th>수취인</th>
+						<th colspan="1" style="width: 120px;">주문번호</th>
+						<th style="width: 100px;">주문 일자</th>
+						<th style="width: 110px;">구매자명</th>
+						<th style="width: 110px;">수취인</th>
 						
-						<th rowspan="2">브랜드명</th>
-						<th rowspan="2">주문 상품</th>
-						<th rowspan="2">상품 가격</th>
-						<th rowspan="2">주문 수량</th>
-						<th rowspan="2">총 결제금액</th>
+						<th rowspan="2" style="width: 120px;">브랜드명</th>
+						<th rowspan="2" style="width: 150px;">주문 상품</th>
+						<th rowspan="2" style="width: 100px;">상품 가격</th>
+						<th rowspan="2" style="width: 100px;">주문 수량</th>
+						<th rowspan="2" style="width: 100px;">총 결제금액</th>
 <!-- 						<th rowspan="2">주문 취소</th> -->
 						
-						<th rowspan="2">상세</th>
+						<th rowspan="2" style="width: 50px;">상세</th>
 					</tr>
 					<tr>
 						<th>주문상태</th>
@@ -67,25 +67,33 @@
 				<tbody>
 					<c:forEach items="${oList }" var="order" varStatus="i">
 						<tr class="orderTrTag" style="background-color: ${i.index % 2 == 0 ? '#fff' : '#ccc'};">
-							<td class="orderNo${i.index}">${order.orderNo}</td>
-							<td class="orderDate${i.index }"><fmt:formatDate value="${order.orderDate }" pattern="yyyy-MM-dd" /></td>
-							<td class="memberName${i.index }">${order.memberName }</td>
-							<td class="recipientName${i.index }">${order.recipientName }</td>
-							<td id="perfumeBrand${i.index}" rowspan="2">
+							<td class="tdOver orderNo${i.index}">${order.orderNo}</td>
+							<td class="tdOver orderDate${i.index }"><fmt:formatDate value="${order.orderDate }" pattern="yyyy-MM-dd" /></td>
+							<td class="tdOver memberName${i.index }">
+								<a href="/admin/member/search?searchCondition=All&searchValue=${order.memberName }">
+									${order.memberName }
+								</a>	
+							</td>
+							<td class="tdOver recipientName${i.index }">${order.recipientName }</td>
+							<td class="tdOver" id="perfumeBrand${i.index}" rowspan="2">
 							        ${order.perfumeBrand}
 							</td>
-							<td id="perfumeName${i.index}" rowspan="2">${order.perfumeName }</td>
-							<td id="perfumePrice${i.index}" rowspan="2"><fmt:formatNumber value="${order.perfumePrice}" pattern="#,##0"/></td>
-							<td id="orderQuantity${i.index}" rowspan="2">${order.orderQuantity }</td>
-							<td rowspan="2" id="paymentAmount${i.index }"><fmt:formatNumber value="${order.paymentAmount}" pattern="#,##0"/></td>
+							<td class="tdOver" id="perfumeName${i.index}" rowspan="2">
+								<a href="/perfume/detail/${order.perfumeNo }">
+									${order.perfumeName }
+								</a>
+							</td>
+							<td class="tdOver" id="perfumePrice${i.index}" rowspan="2"><fmt:formatNumber value="${order.perfumePrice}" pattern="#,##0"/></td>
+							<td class="tdOver" id="orderQuantity${i.index}" rowspan="2">${order.orderQuantity }</td>
+							<td rowspan="2" class="tdOver" id="paymentAmount${i.index }"><fmt:formatNumber value="${order.paymentAmount}" pattern="#,##0"/></td>
 <!-- 							주문 취소 자리 -->
-							<td id="showOrder${i.index}" rowspan="2"><button type="button" onclick="location.href='/admin/order/detail?orderNo=${order.orderNo}'">보 기</button></td>
+							<td class="tdOver" id="showOrder${i.index}" rowspan="2"><button type="button" onclick="location.href='/admin/order/detail?orderNo=${order.orderNo}'">보 기</button></td>
 						</tr>
 						<tr class="orderTrTag" style="background-color: ${i.index % 2 == 0 ? '#fff' : '#ccc'};">
-							<td class="orderNo${i.index }">${order.orderStatus}</td>
-							<td class="orderDate${i.index }">${order.paymentStatus }</td>
-							<td class="memberName${i.index }">${order.memberPhone.substring(0,3)}-${order.memberPhone.substring(3,7)}-${order.memberPhone.substring(7,11)}</td>
-							<td class="recipientName${i.index }">${order.recipientPhone.substring(0,3)}-${order.recipientPhone.substring(3,7)}-${order.recipientPhone.substring(7,11)}</td>
+							<td class="tdOver orderNo${i.index }">${order.orderStatus}</td>
+							<td class="tdOver orderDate${i.index }">${order.paymentStatus }</td>
+							<td class="tdOver memberName${i.index }">${order.memberPhone.substring(0,3)}-${order.memberPhone.substring(3,7)}-${order.memberPhone.substring(7,11)}</td>
+							<td class="tdOver recipientName${i.index }">${order.recipientPhone.substring(0,3)}-${order.recipientPhone.substring(3,7)}-${order.recipientPhone.substring(7,11)}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

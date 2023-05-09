@@ -66,11 +66,6 @@ main .submit-btn {
 	margin-bottom: 30px;
 }
 
-.contentsinput{
-	border: none;
-	resize: none;
-}
-
 .modifybtn{
 	background-color: #222222;
     color: white;
@@ -230,13 +225,31 @@ form span[aria-hidden="true"] {
   padding: 10px;
   border: 1px solid #ccc;
   width: 86%;
+  word-wrap: break-word;
+ 
 }
 
 #replyContents{
 	width: 100%;
 	border: none;
 	resize: none;
-	
+	word-wrap: break-word;
+	font-size: 16px;
+}
+.area {
+	font-size: 16px;
+	border: none;
+	resize: none;
+/* 	overflow: hidden; */
+}
+
+.contentsinput{
+	border: none;
+	resize: none;
+/*  	overflow: hidden;	 */
+	word-wrap: break-word;
+	width: 590px;
+	font-size: 16px;
 }
 
 #rsubmit{
@@ -246,7 +259,6 @@ form span[aria-hidden="true"] {
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     padding: 5px 7px;
-    /* margin-left: 382px; */
     margin: 0px 8px 0px auto;
     float : right;	
     text-decoration: none;

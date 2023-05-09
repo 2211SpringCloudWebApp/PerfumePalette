@@ -84,18 +84,55 @@ main #hrefName {
 }
 /* 사이드바 끝 */
 
+
+/* 체크박스 */
+main input[type='checkbox'] {
+	width: 1.25rem;
+	height: 1.25rem;
+	/* border-radius: 50%; */
+	border: 1px solid #999;
+	appearance: none; /* 꼭 필요함 */
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+main input[type="checkbox"]:checked {
+	background: url("../../../resources/img/cart/check.png") no-repeat;
+	background-size: contain;
+}
+main .allCheck:checked {
+	background: url("../../../resources/img/cart/whiteCheck.png") no-repeat;
+	background-size: contain;
+}
+/* 체크박스 끝 */
+
+
+
+
+
+main .continer {
+	width: 80%;
+	padding-left: 130px;
+	text-align: center;
+}
+
 main select {
 	height: 28px;
 }
 
 main table {
 	table-layout: fixed;
-	width: 60%;
+	text-align: center;
+	border-collapse: collapse;
+	width: 100%;
 }
 main table .tdOver {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
+}
+main .last_btn {
+	text-align: right;
 }
 
 
@@ -133,7 +170,8 @@ main .foot_btn {
 
 main .td {
 	text-align: center;
-	padding: 5px 0px;
+	padding: 0px 5px;
+	height: 50px;
 }
 main img {
 	height:100px;

@@ -48,14 +48,19 @@
 					<th class="perfume_info">브랜드</th>
 					<td class="perfume_detailB">${order.perfumeBrand}</td>
 					<th class="perfume_info">상품명</th>
-					<td class="perfume_detail">${order.perfumeName }</td>
+					<td class="perfume_detail">
+						<a href="/perfume/detail/${order.perfumeNo }">
+							${order.perfumeName }
+						</a>	
+					</td>
 					<th class="perfume_info">주문 수량</th>
 					<td class="orderQuantity">${order.orderQuantity }</td>
 				</tr>
 				</c:forEach>
 				<tr>
 					<th>결제 금액</th>
-					<td colspan="5">${orderList[0].paymentAmount }</td>
+					<td colspan="5"><fmt:formatNumber value="${orderList[0].paymentAmount }" pattern="#,##0"/>원</td>
+					
 				</tr>
 			</table>
 			
@@ -72,9 +77,13 @@
 				</tr>
 				<tr>
 					<th class="perfume_info">주문자</th>
-					<td class="perfume_detail">${orderList[0].memberName }</td>
+					<td class="perfume_detail">
+						<a href="/admin/member/search?searchCondition=All&searchValue=${orderList[0].memberName }">
+							${orderList[0].memberName }
+						</a>	
+					</td>
 					<th class="perfume_info">주문자번호</th>
-					<td class="perfume_detail">${orderList[0].memberPhone }</td>
+					<td class="perfume_detail">${orderList[0].memberPhone.substring(0,3) }-${orderList[0].memberPhone.substring(3,7) }-${orderList[0].memberPhone.substring(7,11) }</td>
 				</tr>
 				<tr>
 					<th class="perfume_info">결제수단</th>
@@ -116,7 +125,7 @@
 					<th class="perfume_info">수령인</th>
 					<td class="perfume_detail">${orderList[0].recipientName }</td>
 					<th class="perfume_info">전화번호</th>
-					<td class="perfume_detail">${orderList[0].recipientPhone }</td>
+					<td class="perfume_detail">${orderList[0].recipientPhone.substring(0,3) }-${orderList[0].recipientPhone.substring(3,7) }-${orderList[0].recipientPhone.substring(7,11) }</td>
 				</tr>
 				<tr>
 					<th class="perfume_info">배송주소</th>
@@ -127,6 +136,7 @@
 					<td colspan="3">${orderList[0].deliveryMsg }</td>
 				</tr>
 			</table>
+			<button type="button" onclick="location.href='/admin/order/list'" id="list_btn">목록으로</button>
 			<div id="ff"></div>
 		</div>
 	</main>

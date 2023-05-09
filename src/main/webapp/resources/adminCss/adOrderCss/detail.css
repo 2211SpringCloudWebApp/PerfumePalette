@@ -132,9 +132,30 @@ main [id^=perfumeImg] {
 
 }
 
+main #list_btn {
+	background-color: #222222;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+	margin-top: 30px;
+	font-size: 30px;
+	padding: 10px 30px;
+}
 
 
 
 main #ff {
 	margin-bottom: 50px;
+}
+
+
+main table a {
+	text-decoration: none;
+	color: black;
+}
+main table a:hover {
+	text-decoration: underline;
+	color: blue;
 }

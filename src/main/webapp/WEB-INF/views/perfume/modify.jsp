@@ -28,7 +28,7 @@
 			<div id="hrefList">
 				<div id="hrefName">${sessionScope.member.memberName }님</div>
 				<span><a href="/perfume/mList">판매상품관리</a></span>
-				<span><a href="#">주문내역관리</a></span>
+				<span><a href="/admin/order/list">주문내역관리</a></span>
 				<span><a href="/admin/member/amList">회원관리</a></span>
 				<span><a href="/admin/qna/list">문의관리</a></span>
 				<span><a href="/admin/review/list">후기관리</a></span>
@@ -45,30 +45,29 @@
 						<input type="hidden" name="pFilerename"	value="${perfume.pFilerename }"> 
 						<input type="hidden" name="pFilepath" value="${perfume.pFilepath }">
 						<div class="top_left">
-							<h3>수정 전 이미지</h3>
-							<div id="img-bfViewer">
-								<img class="bfImg" alt="수정 전 이미지" src="../../../resources/img/perfumeFileUploads/${perfume.pFilerename }">
-							</div>
+<!-- 							<h3>수정 전 이미지</h3> -->
 							<h3>이미지</h3>
-							<div id="img-viewer">
-								<img id="img-view" width="300px">
+							<div id="img-bfViewer">
+								<img class="bfImg" id="img-view" alt="이미지" src="../../../resources/img/perfumeFileUploads/${perfume.pFilerename }">
 							</div>
-							<div>
-								<input type="file" name="reloadFile" onchange="loadImg(this);">
-								${perfume.pFilename }
+<!-- 							<div id="img-viewer"> -->
+<!-- 								<img id="img-view" width="300px"> -->
+<!-- 							</div> -->
+							<div class="div" style="text-align: center;">
+								<input class="file_btn" type="file" name="reloadFile" onchange="loadImg(this);">
 							</div>
 						</div>
 						<div class="top_right">
 			
-							<div class="div">
+							<div class="div" id="name">
 								<label>상품명</label> <input type="text" class="" name="perfumeName"
 									value="${perfume.perfumeName }" />
 							</div>
-							<div class="div">
+							<div class="div" id="brand">
 								<label>브랜드명</label> <input type="text" class="" name="perfumeBrand"
 									value="${perfume.perfumeBrand }" />
 							</div>
-							<div class="div">
+							<div class="div" id="vol">
 								<label>향수 용량 </label>
 								<%--                             <input type="number" name="perfumeVolume" value="${perfume.perfumeVolume }"> --%>
 								<select class="category2" name="perfumeVolume">
@@ -82,19 +81,33 @@
 										<c:if test="${perfume.perfumeVolume eq 100}">selected</c:if>>100</option>
 								</select>
 							</div>
-							<div class="div">
-								<label>상품가격</label> <input type="number" class=""
+							<div class="div" id="price">
+								<label>상품가격</label> <input type="number" class="price_num"
 									name="perfumePrice" value="${perfume.perfumePrice }" />
 							</div>
-							<div class="div">
+							<div class="div" id="EA">
 								<label>상품수량</label> <input type="number" name="perfumeQuantity"
 									value="${perfume.perfumeQuantity }" min="0" max="999">
 							</div>
-							<div class="div">
+							<div class="div" id="pfSel">
+								<label>향수 종류</label> <select class="category1"
+									name="pScentCategory">
+									<option value="Woody"
+										<c:if test="${perfume.pScentCategory eq 'Woody'}">selected</c:if>>Woody</option>
+									<option value="Floral"
+										<c:if test="${perfume.pScentCategory eq 'Floral'}">selected</c:if>>Floral</option>
+									<option value="Fruity"
+										<c:if test="${perfume.pScentCategory eq 'Fruity'}">selected</c:if>>Fruity</option>
+									<option value="Spicy"
+										<c:if test="${perfume.pScentCategory eq 'Spicy'}">selected</c:if>>Spicy</option>
+									<option value="Citrus"
+										<c:if test="${perfume.pScentCategory eq 'Citrus'}">selected</c:if>>Citrus</option>
+								</select>
+							</div>
+							<div class="div" id="img_category">
 								<label>이미지 분류</label>
 								<!--                             <input type="text" class="" name="pImageCategory" > -->
 								<select id="mySelect" onchange="showCheckboxes()">
-									<option id="All">전체</option>
 									<option value="Woody"
 										<c:if test="${perfume.pScentCategory eq 'Woody'}">selected</c:if>>Woody</option>
 									<option value="Floral"
@@ -162,34 +175,18 @@
 									</div>
 								</div>
 							</div>
-							<div class="div">
-								<label>향수 종류</label> <select class="category1"
-									name="pScentCategory">
-									<option value="Woody"
-										<c:if test="${perfume.pScentCategory eq 'Woody'}">selected</c:if>>Woody</option>
-									<option value="Floral"
-										<c:if test="${perfume.pScentCategory eq 'Floral'}">selected</c:if>>Floral</option>
-									<option value="Fruity"
-										<c:if test="${perfume.pScentCategory eq 'Fruity'}">selected</c:if>>Fruity</option>
-									<option value="Spicy"
-										<c:if test="${perfume.pScentCategory eq 'Spicy'}">selected</c:if>>Spicy</option>
-									<option value="Citrus"
-										<c:if test="${perfume.pScentCategory eq 'Citrus'}">selected</c:if>>Citrus</option>
-								</select>
-							</div>
-							<div class="div">
+							<div class="div" id="ox">
 								<label>리스트 노출 여부 </label> <input type="radio" name="perfumeStatus"
 									value="1"
 									<c:if test="${perfume.perfumeStatus eq '1'}">checked</c:if> /> 노출
 								<input type="radio" name="perfumeStatus" value="0"
 									<c:if test="${perfume.perfumeStatus eq '0'}">checked</c:if> /> 비노출
 							</div>
-						</div>
-						<div>
-							<button type="submit" class="sub_btn">수정하기</button>
+							<div style="text-align: right;">
+								<button type="submit" class="sub_btn">수정하기</button>
+							</div>
 						</div>
 					</div>
-					
 				</form>
 			</div>
 		</div>

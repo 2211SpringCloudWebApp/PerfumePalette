@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,17 +16,6 @@
 <link rel="apple-touch-icon" href="../../../resources/img/common/favicon.png" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <style>
-/* 		고정 */
-#id_ok, #pw_ok, #nickName_ok, #email_ok {
-	color: #008000;
-	display: none;
-}
-
-#id_not_ok2, #id_not_ok3, #pw_not_ok2, #pw_not_ok3, #nickName_not_ok2,
-	#nickName_not_ok3, #email_not_ok2, #email_not_ok3, #email_not_ok4 {
-	color: #6A82FB;
-	display: none;
-}
 
 </style>
 </head>
@@ -44,13 +34,14 @@
 			<div id="hrefList">
 				<div id="hrefName">${sessionScope.member.memberName }님</div>
 				<span><a href="/perfume/mList">판매상품관리</a></span>
-				<span><a href="#">주문내역관리</a></span>
+				<span><a href="/admin/order/list">주문내역관리</a></span>
 				<span><a href="/admin/member/amList">회원관리</a></span>
 				<span><a href="/admin/qna/list">문의관리</a></span>
 				<span><a href="/admin/review/list">후기관리</a></span>
 			</div>
 
 			<!-- 여기부터 내용 입력하시면 됩니다! -->
+			<div class="continer">
 			<h1>회원 관리</h1>
 			<div class="search">
 				<form action="/admin/member/search" method="get">
@@ -60,23 +51,23 @@
 						<option value="ID" <c:if test="${search.searchCondition == 'ID' }">selected</c:if>>아이디</option>
 						<option value="Nickname" <c:if test="${search.searchCondition == 'Nickname' }">selected</c:if>>닉네임</option>
 					</select>
-					<input type="text" name="searchValue" placeholder="검색어를 입력해주세요.">
+					<input type="text" name="searchValue" value="${search.searchValue }" placeholder="검색어를 입력해주세요.">
 					<button type="submit" class="modal_btn">검 색</button>
 				</form>
 			</div>
 			<table>
 				<thead>
 					<tr class="headList">
-						<th><input type="checkbox" class="allCheck"></th>
-						<th>이 름</th>
-						<th>아이디</th>
-						<th>닉네임</th>
-						<th>이메일</th>
-						<th>전화번호</th>
-						<th>주 소</th>
-						<th>등록일</th>
-						<th>탈퇴여부</th>
-						<th>수 정</th>
+						<th style="width: 30px;"><input type="checkbox" class="allCheck"></th>
+						<th style="width: 100px;">이 름</th>
+						<th style="width: 100px;">아이디</th>
+						<th style="width: 100px;">닉네임</th>
+						<th style="width: 130px;">이메일</th>
+						<th style="width: 100px;">전화번호</th>
+						<th style="width: 200px;">주 소</th>
+						<th style="width: 100px;">등록일</th>
+						<th style="width: 70px;">탈퇴여부</th>
+						<th style="width: 70px;">수 정</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -186,31 +177,66 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="7"></td>
-						<td><button type="button" class="foot_btn start">선택 활성</button></td>
-						<td><button type="button" class="foot_btn stop">선택 정지</button></td>
-						<td><button type="button" class="foot_btn del">선택 삭제</button></td>
+						<td colspan="6"></td>
+						<td colspan="4" class="last_btn">
+							<button type="button" class="foot_btn start">선택 활성</button>
+							<button type="button" class="foot_btn stop">선택 정지</button>
+							<button type="button" class="foot_btn del">선택 삭제</button>
+						</td>
 					</tr>
 				</tfoot>
 			</table>
+			</div>
 		</div>
 	</main>
 	<jsp:include page="../../common/footer.jsp" />
 	<script>
 		// 전체 선택 박스
 		var allCheck = document.querySelector(".allCheck");
-		var list = document.querySelectorAll(".check");
 		allCheck.onclick = () => {
-			if(allCheck.checked) {
-				for(var i = 0; i < list.length; i++) {
+			if (allCheck.checked) {
+				for (var i = 0; i < list.length; i++) {
 					list[i].checked = true;
 				}
 			} else {
-				for(var i = 0; i < list.length; i++) {
+				for (var i = 0; i < list.length; i++) {
 					list[i].checked = false;
 				}
 			}
 		}
+		
+		// 선택 박스 클릭
+		var list = document.querySelectorAll(".check");
+		for (var i = 0; i < list.length; i++) {
+		  list[i].addEventListener('click', function () {
+		    var isAllChecked = true;
+		    for (var j = 0; j < list.length; j++) {
+		      if (!list[j].checked) {
+		        isAllChecked = false;
+		        break;
+		      }
+		    }
+		    if (isAllChecked) {
+		      allCheck.checked = true;
+		    } else {
+		      allCheck.checked = false;
+		    }
+		  });
+		}
+// 		// 전체 선택 박스
+// 		var allCheck = document.querySelector(".allCheck");
+// 		var list = document.querySelectorAll(".check");
+// 		allCheck.onclick = () => {
+// 			if(allCheck.checked) {
+// 				for(var i = 0; i < list.length; i++) {
+// 					list[i].checked = true;
+// 				}
+// 			} else {
+// 				for(var i = 0; i < list.length; i++) {
+// 					list[i].checked = false;
+// 				}
+// 			}
+// 		}
 		
 		// 선택 삭제 
 		document.querySelector(".del").addEventListener('click', function() {

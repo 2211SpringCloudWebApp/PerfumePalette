@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.perfumePalette.PageInfo;
 import com.kh.perfumePalette.Search;
-import com.kh.perfumePalette.qnaBoard.QnaBoard;
 
 @Service
 public class AdQnaServiceImpl implements AdQnaService {
@@ -20,7 +19,7 @@ public class AdQnaServiceImpl implements AdQnaService {
 	private SqlSession session;
 	
 	@Override
-	public List<QnaBoard> selectAllQna(PageInfo pi) {
+	public List<AdQnaBoard> selectAllQna(PageInfo pi) {
 		return qStore.selectAllQna(session, pi);
 	}
 
@@ -35,7 +34,7 @@ public class AdQnaServiceImpl implements AdQnaService {
 	}
 
 	@Override
-	public List<QnaBoard> selectListByKeyword(PageInfo pi, Search search) {
+	public List<AdQnaBoard> selectListByKeyword(PageInfo pi, Search search) {
 		return qStore.selectListByKeyword(session, pi, search);
 	}
 

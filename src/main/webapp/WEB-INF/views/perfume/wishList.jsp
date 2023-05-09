@@ -46,7 +46,7 @@
 				<span><a href="/admin/review/list">후기관리</a></span>
 			</div>
 			<!-- 여기부터 내용 입력하시면 됩니다! -->
-			<h1>찜 회원</h1>
+			<h1>찜 회원 목록</h1>
 			<div class="table_continer">
 			<table style="text-align: center;">
 				<thead>
@@ -62,7 +62,9 @@
 					<tr>
 						<td>${i.count }</td>
 						<td>${perfume.perfumeName }</td>
-						<td>${perfume.memberId }</td>
+						<td class="id">
+							<a href="/admin/member/search?searchCondition=All&searchValue=${perfume.memberId }">${perfume.memberId }</a>
+						</td>
 						<td><fmt:formatDate value="${perfume.wishDate }" pattern="yyyy-MM-dd" /></td>
 					</tr>
 				</c:forEach>

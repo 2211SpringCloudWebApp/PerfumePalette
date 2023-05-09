@@ -84,18 +84,34 @@ main #hrefName {
 }
 /* 사이드바 끝 */
 
+main .continer {
+	width: 80%;
+	padding-left: 130px;
+	text-align: center;
+}
+main table .tdOver {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
 
 main h1{
 	margin-bottom: 25px;
 	color: black;
 }
-
-main table{
+main table {
+	table-layout: fixed;
 	text-align: center;
 	border-collapse: collapse;
-	width: 60%;
+	width: 100%;
 	margin-bottom: 100px;
 }
+/* main table{ */
+/* 	text-align: center; */
+/* 	border-collapse: collapse; */
+/* 	width: 100%; */
+/* } */
 
 main thead {
 	height: 100px;
@@ -119,6 +135,14 @@ main .line {
 	padding-top: 20px;
 }
 
+main table a {
+	text-decoration: none;
+	color: black;
+}
+main table a:hover {
+	text-decoration: underline;
+	color: blue;
+}
 
 
 /* 유정 시작 */

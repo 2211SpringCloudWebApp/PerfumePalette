@@ -58,7 +58,7 @@
 					    <option name ="" value="Spicy">Spicy</option>
 					    <option name ="" value="Citrus">Citrus</option>
 					</select>
-					<input type="text" name="searchValue" value="${search.searchValue }" placeholder="상품명 검색">
+					<input type="text" name="searchValue" value="${search.searchValue }" placeholder="브랜드 OR 상품명 검색">
 					<button type="submit" class="small_button">검 색</button>
 				</form>
 			</div>
@@ -68,12 +68,12 @@
 						<th style="width: 30px;"><input type="checkbox" class="allCheck"></th>
 						<th style="width: 100px;">별 점</th>
 						<th style="width: 100px;">이미지</th>
-						<th style="width: 130px;">상 품</th>
-						<th style="width: 150px;">내 용</th>
-						<th style="width: 70px;">작성자</th>
+						<th style="width: 150px;">상 품</th>
+						<th style="width: 100px;">작성자</th>
 						<th style="width: 100px">작성일</th>
 						<th style="width: 60px;">조회수</th>
 						<th style="width: 60px;">신고수</th>
+						<th style="width: 60px;">후기상세</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -90,14 +90,21 @@
 									<input type="hidden" name="rViewscore" class="rating-value" value="${review.rViewscore }">
 								</div>
 							</td>
-							<td class="onclick" onclick="window.location.href='/review/reviewDetail/${review.reviewNo}';">
+							<td class="onclick">
 								<img src="../../../../resources/img/perfumeFileUploads/${review.pFilerename}" alt="">
 							</td>
-							<td class="onclick tdOver" onclick="window.location.href='/review/reviewDetail/${review.reviewNo}';"><strong>[${review.perfumeBrand }] ${review.perfumeName }</strong></td>
-							<td class="onclick tdOver" onclick="window.location.href='/review/reviewDetail/${review.reviewNo}';">
-	            				<c:out value="${fn:substring(review.reviewContents, 0, 19)}${fn:length(review.reviewContents) > 19 ? '...' : ''}" />
-		            		</td>
-							<td class="onclick tdOver" style="width: 100px;" onclick="window.location.href='/review/reviewDetail/${review.reviewNo}';">${review.memberNickname }</td>
+							<td class="onclick tdOver">
+								<a href="/perfume/detail/${review.perfumeNo}">[${review.perfumeBrand }] ${review.perfumeName }</a>
+							</td>
+<!-- 							<td class="onclick tdOver"> -->
+<%-- 	            				<a href="/review/reviewDetail/${review.reviewNo}"> --%>
+<%-- 									<c:out value="${fn:substring(review.reviewContents, 0, 10)}${fn:length(review.reviewContents) > 10 ? '...' : ''}" escapeXml="false"/> --%>
+<%-- 									<c:out value="${fn:substring(review.reviewContents, 0, 19)}" escapeXml="false"/> --%>
+<!-- 								</a> -->
+<!-- 		            		</td> -->
+							<td class="onclick tdOver" style="width: 100px;">
+								<a href="/admin/member/search?searchCondition=All&searchValue=${review.memberNickname }">${review.memberNickname }</a>
+							</td>
 							<td><fmt:formatDate value="${review.reviewDate }" pattern="yyyy-MM-dd" /></td>
 							<td>${review.rViewcount }</td>
 							<td>
@@ -108,6 +115,11 @@
 									${review.reportCount }
 								</c:if>
 							</td>
+							<td>
+								<button class="rDetail_btn" type="button" onclick="location.href='/review/reviewDetail/${review.reviewNo}'">
+									상 세
+								</button>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -117,7 +129,7 @@
 						<td colspan="2"><button type="button" class="del">삭제하기</button></td>
 					</tr>
 			        <tr>
-						<td colspan="8" class="line">
+						<td colspan="9" class="line">
 					        <div id="paging">
 							<c:if test="${paging.totalCount ne null }">
 								<c:if test="${paging.currentPage != 1}">
@@ -160,19 +172,51 @@
 	<jsp:include page="../../common/footer.jsp" />
 	
 	<script>
-	// 전체 선택 박스
-	var allCheck = document.querySelector(".allCheck");
-	allCheck.onclick = () => {
-		if (allCheck.checked) {
-			for (var i = 0; i < list.length; i++) {
-				list[i].checked = true;
-			}
-		} else {
-			for (var i = 0; i < list.length; i++) {
-				list[i].checked = false;
+		// 전체 선택 박스
+		var allCheck = document.querySelector(".allCheck");
+		allCheck.onclick = () => {
+			if (allCheck.checked) {
+				for (var i = 0; i < list.length; i++) {
+					list[i].checked = true;
+				}
+			} else {
+				for (var i = 0; i < list.length; i++) {
+					list[i].checked = false;
+				}
 			}
 		}
-	}
+		
+		// 선택 박스 클릭
+		var list = document.querySelectorAll(".check");
+		for (var i = 0; i < list.length; i++) {
+		  list[i].addEventListener('click', function () {
+		    var isAllChecked = true;
+		    for (var j = 0; j < list.length; j++) {
+		      if (!list[j].checked) {
+		        isAllChecked = false;
+		        break;
+		      }
+		    }
+		    if (isAllChecked) {
+		      allCheck.checked = true;
+		    } else {
+		      allCheck.checked = false;
+		    }
+		  });
+		}
+// 	// 전체 선택 박스
+// 	var allCheck = document.querySelector(".allCheck");
+// 	allCheck.onclick = () => {
+// 		if (allCheck.checked) {
+// 			for (var i = 0; i < list.length; i++) {
+// 				list[i].checked = true;
+// 			}
+// 		} else {
+// 			for (var i = 0; i < list.length; i++) {
+// 				list[i].checked = false;
+// 			}
+// 		}
+// 	}
 	
 	// 선택 박스 클릭
 	var list = document.querySelectorAll(".check");
